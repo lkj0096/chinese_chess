@@ -1,0 +1,69 @@
+#pragma once
+#include "NetworkClient.h"
+#include "NetworkHost.h"
+#include "GameManager.h"
+class MainUserInterface;
+class Player {
+	void GetMoveTo() {};
+};
+
+class User {
+	MainUserInterface* instance;
+
+	GameManager gameManager;
+
+	//For Online
+	NetworkClient client;
+	
+public:
+	/// <summary>
+	/// Bridge UI -- GM
+	/// </summary>
+	void playerSelfGame();
+
+	/// <summary>
+	/// Bridge UI -- GM
+	/// </summary>
+	void playerAIGame();
+
+	/// <summary>
+	/// Bridge UI -- 
+	/// </summary>
+	void LoadGame(MainUserInterface* instance, void(MainUserInterface::*func)());
+
+	//For Online
+
+	/// <summary>
+	/// Bridge UI -- GM
+	/// </summary>
+	void CreateRoom();
+
+	/// <summary>
+	/// Bridge UI -- NC
+	/// </summary>
+	void JoinRoom(string);
+
+	/// <summary>
+	/// Bridge UI -- GM
+	/// </summary>
+	void CloseHost();
+
+	/// <summary>
+	/// Bridge UI -- NC
+	/// </summary>
+	void CloseClient();
+
+	/// <summary>
+	/// Bridge UI -- GM
+	/// </summary>
+	void StartOnlineGame();
+
+
+	///////////////////Gaming///////////////////
+
+	void MoveChess();
+};
+
+class AI{
+
+};
