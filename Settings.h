@@ -3,8 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_Settings.h"
 
-class Settings : public QMainWindow
-{
+class Settings : public QMainWindow{
     Q_OBJECT
 
 public:

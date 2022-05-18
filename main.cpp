@@ -1,9 +1,8 @@
-#include "MainInterface.h"
+#include "MainUserInterface.h"
 
 int main(int argc, char *argv[]){
 
-
-    MainInterface inter(argc, argv);
+    MainUserInterface inter(argc, argv);
     inter.run();
     return 0;
 }

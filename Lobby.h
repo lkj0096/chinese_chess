@@ -4,8 +4,7 @@ using std::string;
 #include <QtWidgets/QMainWindow>
 #include "ui_Lobby.h"
 
-class Lobby : public QMainWindow
-{
+class Lobby : public QMainWindow{
     Q_OBJECT
 
 public:

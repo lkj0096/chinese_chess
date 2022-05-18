@@ -13,6 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
     connect(ui.btn_end, &QPushButton::clicked, [=] {
-        emit maintointe("end");
+        emit maintointe("endapp");
     });
 }

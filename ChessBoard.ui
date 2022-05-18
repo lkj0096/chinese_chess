@@ -965,7 +965,7 @@
     <string>存檔</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pic_bear_inv">
+  <widget class="QPushButton" name="pic_bear_RD">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -1002,7 +1002,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="pic_bear">
+  <widget class="QPushButton" name="pic_bear_BL">
    <property name="enabled">
     <bool>true</bool>
    </property>

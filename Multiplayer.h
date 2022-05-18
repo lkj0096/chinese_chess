@@ -6,8 +6,7 @@ using std::string;
 #include <QtWidgets/QMainWindow>
 #include "ui_Multiplayer.h"
 
-class Multiplayer : public QMainWindow
-{
+class Multiplayer : public QMainWindow{
     Q_OBJECT
 
 public:
