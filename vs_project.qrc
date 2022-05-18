@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/vs_project"/>
+    <qresource prefix="/pics">
+        <file>pics/ad1.svg</file>
+        <file>pics/al1.svg</file>
+        <file>pics/cd1.svg</file>
+        <file>pics/cl1.svg</file>
+        <file>pics/ed1.svg</file>
+        <file>pics/el1.svg</file>
+        <file>pics/gd1.svg</file>
+        <file>pics/gl1.svg</file>
+        <file>pics/hd1.svg</file>
+        <file>pics/hl1.svg</file>
+        <file>pics/ind.jpg</file>
+        <file>pics/ind_rev.jpg</file>
+        <file>pics/rd1.svg</file>
+        <file>pics/rl1.svg</file>
+        <file>pics/sd1.svg</file>
+        <file>pics/sl1.svg</file>
+        <file>pics/棋盤.svg</file>
+    </qresource>
+</RCC>
