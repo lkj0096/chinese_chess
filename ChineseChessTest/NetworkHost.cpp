@@ -48,6 +48,7 @@ void NetworkHost::WaitingClient() {
 	serverAddr.sin_port = htons(3141);
 
 	server = socket(AF_INET, SOCK_STREAM, NULL);
+	
 	int b = bind(server, (SOCKADDR*)&serverAddr, sizeof(serverAddr));
 	int l = listen(server, SOMAXCONN);
 

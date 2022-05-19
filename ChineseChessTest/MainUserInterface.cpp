@@ -20,7 +20,7 @@ void MainUserInterface::PlayAI() {
 void MainUserInterface::LoadGame() {
 	//void (MainUserInterface::* func)() = &MainUserInterface::setX;
 	//(this->*func)();
-	user.LoadGame(this, &MainUserInterface::setX);
+	//user.LoadGame(this, &MainUserInterface::setX);
 }
 
 void MainUserInterface::MultiGame() {

@@ -3,17 +3,22 @@
 #include <utility>
 #include "Chess.h"
 #include "Point.h"
+#include <vector>
+#include <string>
 
 class ChessBoard {
-	Chess* BoardData[2][13][14];
+	Chess*** BoardData;
+
+	std::vector<Chess*> DeadChess[2];
 	//int boardData[10][11];
 
 
+public:
 	/// <summary>
 	/// when game start, put on the chess
 	/// </summary>
 	void init();
-public:
+
 	/// <summary>
 	/// Get all the chess on the board
 	/// </summary>
@@ -36,4 +41,6 @@ public:
 	/// <param name=""></param>
 	/// <returns></returns>
 	std::pair<Chess*, Point*> GetChessMoves(int);
+
+	std::string ToString();
 };

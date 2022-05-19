@@ -3,9 +3,17 @@
 #include "MainUserInterface.h"
 #include "NetworkClient.h"
 #include "NetworkHost.h"
-
+#include "ChessBoard.h"
+#include "Point.h"
 
 int main() {
+	ChessBoard chessBoard;
+	chessBoard.init();
+	std::cout << chessBoard.ToString() << "\n";
+	chessBoard.MoveChess(Point(2, 2), Point(2, 4));
+	std::cout << chessBoard.ToString() << "\n";
+	return 0;
+
 	MainUserInterface UI;
 	string str;
 	while (std::cin >> str) {

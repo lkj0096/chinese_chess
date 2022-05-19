@@ -22,6 +22,6 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	bool NotVaild() {
-		return x < 2 || y < 2 || x > 7 || y > 8;
+		return x < 2 || y < 2 || x > 10 || y > 11;
 	}
 };

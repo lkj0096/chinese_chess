@@ -5,6 +5,7 @@
 #include <time.h>
 
 void GameManager::init() {
+	chessBoard.init();
 }
 
 void GameManager::RandomTeam() {
@@ -66,6 +67,7 @@ void GameManager::startGame() {
 
 void GameManager::DealMsg(string msg) {
 	if (msg == "Move") {
+		//chessBoard.MoveChess();
 		respond = true;
 	}
 }
