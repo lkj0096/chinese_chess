@@ -72,6 +72,14 @@ void User::ClientDealMsg(std::string msg) {
 	if (msg.substr(0, 4) == "Turn") {
 
 	}
+	//Team:[team]
+	if (msg.substr(0, 4) == "Team") {
+
+	}
+	//start game
+	if (msg.substr(0, 5) == "Start") {
+
+	}
 	//Winner:[team]
 	if (msg.substr(0, 6) == "Winner") {
 

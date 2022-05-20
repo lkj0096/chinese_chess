@@ -65,9 +65,9 @@ void GameManager::startGame() {
 	Gaming = true;
 	respond = true;
 	RandomTeam();
-	host.BoardCast("Game Start!");
+	host.BoardCast("StartGame!");
 	for (auto player : players) {
-		host.SendMsg(player, to_string(getTurnIndex()));
+		host.SendMsg(player,"Team:" + to_string(getTurnIndex()));
 	}
 	thread gamingThread = thread(&GameManager::GamingF, this);
 	gamingThread.detach(); 
