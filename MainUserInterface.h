@@ -29,15 +29,15 @@ public:
 	
 	void setX() {};
 
-	void SelfGameStart(bool BorR) { forms->gamestart(BorR); }
+	void SelfGameStart(bool RorB) { forms->gamestart(RorB); }
 
-	void AIGameStart(bool BorR) { forms->gamestart(BorR); }
+	void AIGameStart(bool RorB) { forms->gamestart(RorB); }
 
 	void LoadGame();
 
-	void LoadGameStart(bool BorR) { forms->gamestart(BorR); }
+	void LoadGameStart(bool RorB) { forms->gamestart(RorB); }
 
-	void MultiGameStart(bool BorR) { forms->gamestart(BorR); }
+	void MultiGameStart(bool RorB) { forms->gamestart(RorB); }
 
 	/// <summary>
 	/// Press Create Room Button
@@ -96,8 +96,8 @@ public:
 		forms->MoveChess(pt);
 	};
 
-	void ShowHintPos(vector<Point> pts1, vector<Point> pts2) {
-		forms->ShowHintPos(pts1,pts2);
+	void ShowHintPos(vector<Point> pts) {
+		forms->ShowHintPos(pts);
 	};
 
 	void HintPressed(Point, Point) {};
@@ -105,4 +105,6 @@ public:
 
 	void CheckMate() { forms->CheckMate(); };
 	void EndGame() { forms->EndGame(); };
+
+	void setTurn(const bool BlackTurn) { forms->setTurn(BlackTurn); };
 };

@@ -24,11 +24,13 @@ class All_form : public QObject{
 public:
     All_form(QWidget* parent = Q_NULLPTR);
     void set_interface(MainUserInterface* inf) { main_in = inf; };
-    void MoveChess(Point& pt) { form_board->MoveChess(pt); };
-    void ShowHintPos(vector<Point>& pts1, vector<Point>& pts2) { form_board->ShowHintPos(pts1,pts2); };
+    void MoveChess(const Point& pt) { form_board->MoveChess(pt); };
+    void ShowHintPos(const vector<Point>& pts1) { form_board->ShowHintPos(pts1); };
     void CheckMate() { form_board->checkmate(); };
     void EndGame() { form_board->game_over(); };
-    void gamestart(bool BorR) { form_board->game_start(BorR); };
+    void gamestart(bool RorB) { form_board->game_start(RorB); };
+    void setTurn(const bool& bl) { form_board->setTurn(bl); };
+
 private:
     void showform(QMainWindow* w);
     MainUserInterface* main_in;

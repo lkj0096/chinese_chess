@@ -15,9 +15,11 @@ class qtui_ChessBoard : public QMainWindow{
 public:
     qtui_ChessBoard(QWidget* parent = Q_NULLPTR);
     void timerEvent(QTimerEvent* event);
+    void setTurn(const bool& bl) { BlackTurn = bl; };
+
 public slots:
-    void ShowHintPos(vector<Point>, vector<Point>);
-    void MoveChess(Point);
+    void ShowHintPos(const vector<Point>&);
+    void MoveChess(const Point&);
     void checkmate() {};
     void game_start(bool);
     void game_over();
@@ -26,16 +28,16 @@ signals:
     void chesstointe(string);
     void chess_pressed(Point);
     void hint_pressed(Point, Point);
+
 private:
-    bool thisisred;
-    QPushButton* eaten;
-    QPushButton* last_pressed_btn;
-    Point last_pressed_pos;
-    vector<Point> last_eatable;
+    bool BlackTurn;
+    bool thisisblack;
     unsigned long long time_remained;
     int timerId;
     Ui::ChessBoard ui;
+    Point last_pressed_pos;
     QIcon *bear, *bear_rev;
+    QPushButton* last_pressed_btn;
     vector<vector<QPushButton*>> hints;
     vector<QPushButton*> chesses;
     void ui_init();

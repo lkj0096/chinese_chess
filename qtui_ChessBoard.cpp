@@ -31,6 +31,7 @@ qtui_ChessBoard::qtui_ChessBoard(QWidget* parent)
     bear_rev = new QIcon(":/pics/pics/ind_rev.jpg");
     ui.setupUi(this);
     // init set
+    // RD 0->15 BL 16->32
     chesses = { ui.btn_RD_shi_R,  ui.btn_RD_shi_L,
                 ui.btn_RD_xiang_R,ui.btn_RD_xiang_L,
                 ui.btn_RD_ma_R,   ui.btn_RD_ma_L,
@@ -80,15 +81,27 @@ qtui_ChessBoard::qtui_ChessBoard(QWidget* parent)
     // End Create Hint Button
     //
     // Set connection about chess and signal
+    int* j = new int(0);
     for (auto& i : chesses) {
         connect(i, &QPushButton::clicked, [=] {
-            last_pressed_btn = i;
-            last_pressed_pos = Point(
-                (i->x() - 017) / 72,
-                (670 - i->y()) / 72);
-            emit chess_pressed(last_pressed_pos); 
+            if (BlackTurn && (*j) > 15) {
+                last_pressed_btn = i;
+                last_pressed_pos = Point(
+                    (i->x() - 017) / 72,
+                    (670 - i->y()) / 72);
+                emit chess_pressed(last_pressed_pos);
+            }
+            else if(!BlackTurn && (*j) < 16) {
+                last_pressed_btn = i;
+                last_pressed_pos = Point(
+                    (i->x() - 017) / 72,
+                    (670 - i->y()) / 72);
+                emit chess_pressed(last_pressed_pos);
+            }
         });
+        (*j)++;
     }
+    delete j;
     //
     //
     // surrender
@@ -103,7 +116,7 @@ qtui_ChessBoard::qtui_ChessBoard(QWidget* parent)
     });
 }
 
-void qtui_ChessBoard::MoveChess(Point pt) {
+void qtui_ChessBoard::MoveChess(const Point& pt) {
     for (auto& m : chesses) {
         if (m->x() == ChessBoardLoacation::CoordinateMap[pt.x][pt.y].x &&
             m->y() == ChessBoardLoacation::CoordinateMap[pt.x][pt.y].y) {
@@ -118,18 +131,14 @@ void qtui_ChessBoard::MoveChess(Point pt) {
         50, 50);
 }
 
-void qtui_ChessBoard::ShowHintPos(vector<Point> blank, vector<Point> eatable) {
+void qtui_ChessBoard::ShowHintPos(const vector<Point>& pts) {
     for (auto& i : hints) {
         for (auto& j : i) {
             j->setVisible(false);
             j->setEnabled(false);
         }
     }
-    for (const auto& i : blank) {
-        hints[i.x][i.y]->setVisible(true);
-        hints[i.x][i.y]->setEnabled(true);
-    }
-    for (const auto& i : eatable) {
+    for (const auto& i : pts) {
         hints[i.x][i.y]->setVisible(true);
         hints[i.x][i.y]->setEnabled(true);
     }
@@ -143,15 +152,15 @@ void qtui_ChessBoard::timerEvent(QTimerEvent* event) {
         ui.lb_timer->setText(QString("%1:%2")
         .arg(mins, 2, 10, QLatin1Char('0'))
         .arg(secs, 2, 10, QLatin1Char('0')));
-        if (time_remained & 1) {
-            ui.pic_bear_RD->setIcon(*bear);
-            ui.pic_bear_BL->setIcon(*bear_rev);
+
+        if (BlackTurn) {
+            if (time_remained & 1) ui.pic_bear_BL->setIcon(*bear_rev);
+            else ui.pic_bear_BL->setIcon(*bear);
         }
         else {
-            ui.pic_bear_RD->setIcon(*bear_rev);
-            ui.pic_bear_BL->setIcon(*bear);
+            if (time_remained & 1) ui.pic_bear_RD->setIcon(*bear);
+            else ui.pic_bear_RD->setIcon(*bear_rev);
         }
-        
     }
 }
 
@@ -195,8 +204,9 @@ void qtui_ChessBoard::ui_init() {
     ui.btn_RD_xiang_R->setGeometry(QRect(449, 22, 50, 50));
 }
 
-void qtui_ChessBoard::game_start(bool BorR) {
+void qtui_ChessBoard::game_start(bool RorB) {
     this->ui_init();
+    this->thisisblack = RorB;
     time_remained = 0;
     ui.lb_timer->setText(QString("00:00"));
     timerId = startTimer(1000);
