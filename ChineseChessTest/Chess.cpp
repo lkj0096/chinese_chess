@@ -27,6 +27,10 @@ int Chess::getTeam() {
     return team;
 }
 
+bool Chess::isGeneral() {
+    return false;
+}
+
 void Chess::SetPoint(Point p) {
     this->position = p;
 }
@@ -87,6 +91,14 @@ std::vector<Point> General::canAttackTo(Chess*** cb) {
             if (!cb[position.x][position.y + 1]->getTeam())
             v.push_back(Point(position.x, position.y + 1));
         }
+        for (int i = position.y - 1; i > 1; i--) {
+            if (cb[position.x][i] != nullptr) {
+                if (cb[position.x][i]->isGeneral()) {
+                    v.push_back(Point(position.x, i));
+                }
+                break;
+            }
+        }
     } else {
         if (position.x > 5 && cb[position.x - 1][position.y] != nullptr) {
             if (cb[position.x - 1][position.y]->getTeam())
@@ -104,12 +116,24 @@ std::vector<Point> General::canAttackTo(Chess*** cb) {
             if (cb[position.x][position.y + 1]->getTeam())
                 v.push_back(Point(position.x, position.y + 1));
         }
+        for (int i = position.y + 1; i < 12; i++) {
+            if (cb[position.x][i] != nullptr) {
+                if (cb[position.x][i]->isGeneral()) {
+                    v.push_back(Point(position.x, i));
+                }
+                break;
+            }
+        }
     }
     return v;
 }
 
 std::string General::toString() {
     return getTeam() ? "g" : "G";
+}
+
+bool General::isGeneral() {
+    return true;
 }
 
 Advisor::Advisor(int team, Point pos) {

@@ -2,6 +2,7 @@
 #include "NetworkClient.h"
 #include "NetworkHost.h"
 #include "GameManager.h"
+#include "OfflineGameManager.h"
 class MainUserInterface;
 class Player {
 	void GetMoveTo() {};
@@ -10,12 +11,15 @@ class Player {
 class User {
 	MainUserInterface* instance;
 
-	GameManager gameManager;
+	GameManager gameManager = NULL;
+	OfflineGameManager offGameManager = NULL;
 
 	//For Online
-	NetworkClient client;
+	NetworkClient client = NULL;
 	
 public:
+	User();
+
 	/// <summary>
 	/// Bridge UI -- GM
 	/// </summary>
@@ -61,7 +65,18 @@ public:
 
 	///////////////////Gaming///////////////////
 
-	void MoveChess();
+	void MoveChess(Point);
+
+	/// BackCall
+	void HostClientDisConnect(SOCKET);
+	void HostDealMsg(std::string);
+	void HostClientFull();
+	void HostServerTerminate();
+
+	void ClientDealMsg(std::string);
+	void ClientNotifyServerCancel();
+	void ClientTryConnect(int);
+
 };
 
 class AI{

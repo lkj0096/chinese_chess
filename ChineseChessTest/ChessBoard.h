@@ -14,6 +14,8 @@ class ChessBoard {
 
 
 public:
+	bool gameEnd = false;
+	int winTeam = -1;
 	/// <summary>
 	/// when game start, put on the chess
 	/// </summary>
@@ -33,7 +35,7 @@ public:
 	/// Get the chess where can go by its position.
 	/// </summary>
 	/// <param name=""></param>
-	void GetChessMove(Point);
+	std::pair<std::vector<Point>, std::vector<Point>> GetChessMove(Point);
 
 	/// <summary>
 	/// Get all chess where can go by their team.

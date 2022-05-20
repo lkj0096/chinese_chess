@@ -1,11 +1,15 @@
 #pragma once
 
+#include <Ws2tcpip.h>
 #include <vector>
 #include <string>
 #include "ChessBoard.h"
 #include "NetworkHost.h"
 
+class User;
+
 class GameManager {
+	User* BackCallInstance;
 	std::vector<std::string> Log;
 
 	std::vector<SOCKET> players;
@@ -40,9 +44,11 @@ class GameManager {
 	void CallNextPlayer();
 
 	void GamingF();
+
+	std::pair<std::vector<Point>, std::vector<Point>> GetChessMove(Point);
 public:
 
-	GameManager();
+	GameManager(User* ins);
 
 	//For Online
 
@@ -65,7 +71,8 @@ public:
 	
 	///BackCall
 
-	void DealMsg(std::string);
+	void ClientDisConnect(SOCKET);
+	void DealMsg(SOCKET, std::string);
 	void ClientFull();
 	void ServerTerminate();
 };

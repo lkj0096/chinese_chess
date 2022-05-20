@@ -21,7 +21,7 @@ void NetworkHost::Listening(int index, SOCKET client, SOCKADDR_IN clientAddr) {
 		if (r == -1 || r == 0) {
 			break;
 		}
-		BackCallInstance->DealMsg(string(message));
+		BackCallInstance->DealMsg(client, string(message));
 		DebugLogger::Print(0, __LINE__, vector({ client }));
 		DebugLogger::Print(0, __LINE__, vector({ ":"}));
 		DebugLogger::Print(0, __LINE__, vector({ message }));
@@ -29,6 +29,7 @@ void NetworkHost::Listening(int index, SOCKET client, SOCKADDR_IN clientAddr) {
 	}
 	delete players[client];
 	players.erase(client);
+	BackCallInstance->ClientDisConnect(client);
 	DebugLogger::Print(0, __LINE__, vector({ client }));
 	DebugLogger::Print(0, __LINE__, vector({ "disconnect :" }));
 }

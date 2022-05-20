@@ -5,8 +5,16 @@
 #include "NetworkHost.h"
 #include "ChessBoard.h"
 #include "Point.h"
-
+#include "DataConverter.h"
+using namespace std;
 int main() {
+	vector<Point> points{ Point(1,3), Point(2,4), Point(88,5) };
+	string str = DataConverter::Serialize(points);
+	cout << str << endl;
+	points = DataConverter::DeSerializePoints(str);
+	str = DataConverter::Serialize(points);
+	cout << str << endl;
+	return 0;
 	ChessBoard chessBoard;
 	chessBoard.init();
 	std::cout << chessBoard.ToString() << "\n";
@@ -15,7 +23,7 @@ int main() {
 	return 0;
 
 	MainUserInterface UI;
-	string str;
+	//string str;
 	while (std::cin >> str) {
 		switch (str[0]) {
 		case '0':

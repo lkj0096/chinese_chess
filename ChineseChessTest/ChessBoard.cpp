@@ -2,6 +2,8 @@
 #include <utility>
 
 void ChessBoard::init() {
+    gameEnd = false;
+    winTeam = -1;
     BoardData = new Chess * *[13];
     for (int j = 0; j < 13; j++) {
         BoardData[j] = new Chess*[14];
@@ -51,6 +53,10 @@ void ChessBoard::GetBoardInfo() {
 void ChessBoard::MoveChess(Point st, Point en) {
     Chess* temp = nullptr;
     if (BoardData[en.x][en.y] != nullptr) {
+        if (BoardData[en.x][en.y]->isGeneral()) {
+            gameEnd = true;
+            winTeam = BoardData[en.x][en.y]->getTeam();
+        }
         temp = BoardData[en.x][en.y];
         DeadChess[temp->getTeam()].push_back(temp);
     }
@@ -59,10 +65,11 @@ void ChessBoard::MoveChess(Point st, Point en) {
     BoardData[st.x][st.y] = nullptr;
 }
 
-void ChessBoard::GetChessMove(Point point) {
+std::pair<std::vector<Point>, std::vector<Point>> ChessBoard::GetChessMove(Point point) {
     /// 
     std::vector<Point> move = BoardData[point.x][point.y]->canMoveTo(BoardData);
     std::vector<Point> atk = BoardData[point.x][point.y]->canAttackTo(BoardData);
+    return std::make_pair(move, atk);
 }
 
 std::pair<Chess*, Point*> ChessBoard::GetChessMoves(int) {

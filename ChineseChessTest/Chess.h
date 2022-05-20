@@ -38,6 +38,8 @@ public:
 
     virtual int getTeam();
 
+    virtual bool isGeneral();
+
     virtual void SetPoint(Point);
 };
 
@@ -47,6 +49,7 @@ public:
     std::vector<Point> canMoveTo(Chess***);
     std::vector<Point> canAttackTo(Chess***);
     std::string toString();
+    virtual bool isGeneral() override;
 };
 
 class Advisor : public Chess {

@@ -1,5 +1,6 @@
 #include "NetworkClient.h"
 #include "DebugLogger.h"
+#include "Player.h"
 #include <thread>
 
 void NetworkClient::Listening(SOCKET server) {
@@ -8,19 +9,25 @@ void NetworkClient::Listening(SOCKET server) {
         ZeroMemory(message, 200);
         int r = recv(server, message, sizeof(message), 0);
         if (r == -1 || r == 0) break;
-        if (message == "your turn") {
+        BackCallInstance->ClientDealMsg(string(message));
+        //if (message == "your turn") {
 
-        }
+        //}
 
-        if (message[0] >= '0' && message[0] <= '9') {
+        //if (message[0] >= '0' && message[0] <= '9') {
 
-        } else {
+        //} else {
 
-        }
+        //}
 
         cout << message << endl;
     }
+    BackCallInstance->ClientNotifyServerCancel();
     DebugLogger::Print(0, __LINE__, vector({ "server cancel" }));
+}
+
+NetworkClient::NetworkClient(User* ins) {
+    BackCallInstance = ins;
 }
 
 void NetworkClient::Send(string msg) {
@@ -44,6 +51,7 @@ void NetworkClient::Connect(string address) {
     while (tryConnectTime--) {
         int connectCode = connect(sConnect, (SOCKADDR*)&addr, sizeof(addr));
         if (connectCode == 0) break;
+        BackCallInstance->ClientTryConnect(5 - tryConnectTime);
         cout << "code : " << connectCode << " || tryConnect " << 5 - tryConnectTime << " : failed" << endl;
         Sleep(1000);
     }

@@ -23,6 +23,9 @@ void MainUserInterface::LoadGame() {
 	//user.LoadGame(this, &MainUserInterface::setX);
 }
 
+void MainUserInterface::SaveGame() {
+}
+
 void MainUserInterface::MultiGame() {
 }
 

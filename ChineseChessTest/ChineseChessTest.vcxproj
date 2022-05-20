@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="Chess.h" />
     <ClInclude Include="ChessBoard.h" />
+    <ClInclude Include="DataConverter.h" />
     <ClInclude Include="DebugLogger.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="MainUserInterface.h" />

@@ -30,6 +30,11 @@ public:
 	/// </summary>
 	void LoadGame();
 
+	/// <summary>
+	/// Press Save Game Button
+	/// </summary>
+	void SaveGame();
+
 
 	/// <summary>
 	/// Press Multi Game Button
