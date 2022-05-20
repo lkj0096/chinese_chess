@@ -4,9 +4,8 @@
 #include <vector>
 #include "All_form.h"
 #include "Point.h"
-#ifdef PLAYER_H
 #include "Player.h"
-#endif // PLAYER_H
+
 
 
 
@@ -18,9 +17,8 @@ class MainUserInterface {
 	int argc;
 	char** argv;
 
-#ifdef PLAYER_H
 	User user;
-#endif // PLAYER_H
+
 public:
 	MainUserInterface(int argc, char* argv[]);
 	int x = 3;
@@ -31,56 +29,40 @@ public:
 	
 	void setX() {};
 
-	/// <summary>
-	/// Press Sigle Game Button
-	/// </summary>
-	void SingleGame() {};
+	void SelfGameStart(bool BorR) { forms->gamestart(BorR); }
 
-	/// <summary>
-	/// Press Play Self Button
-	/// </summary>
-	void PlaySelf() {};
+	void AIGameStart(bool BorR) { forms->gamestart(BorR); }
 
-	/// <summary>
-	/// Press Play AI Button
-	/// </summary>
-	void PlayAI() {};
+	void LoadGame();
 
-	/// <summary>
-	/// Press Load Game Button
-	/// </summary>
-	void LoadGame() {};
+	void LoadGameStart(bool BorR) { forms->gamestart(BorR); }
 
-
-	/// <summary>
-	/// Press Multi Game Button
-	/// </summary>
-	void MultiGame() {};
+	void MultiGameStart(bool BorR) { forms->gamestart(BorR); }
 
 	/// <summary>
 	/// Press Create Room Button
 	/// </summary>
-	void CreateRoom() {};
+	void CreateRoom() {	user.CreateRoom(); };
 
 	/// <summary>
 	/// Press Join Room Button
 	/// </summary>
-	void JoinRoom(string) {};
+	void JoinRoom(string address) { user.JoinRoom(address); };
 
 	/// <summary>
 	/// Press Back Button when user is host
 	/// </summary>
-	void CloseHost() {};
+	void CloseHost() { user.CloseHost(); };
 
 	/// <summary>
 	/// Press Back Button when user is client
 	/// </summary>
-	void CloseClient() {};
+	void CloseClient() { user.CloseClient(); };
 
 	/// <summary>
 	/// Press Start Game when user is host
 	/// </summary>
-	void StartOnlineGame() {};
+	void StartOnlineGame() { user.StartOnlineGame(); };
 
 
 	/// <summary>
@@ -92,13 +74,14 @@ public:
 	/// <summary>
 	/// Press Back Button
 	/// </summary>
-	void Back() {};
-
 
 	/// <summary>
-	/// Press Leave App Button
+	/// Surr
 	/// </summary>
-	void LeaveGame() {};
+	void Surr(string str) {
+		if (str == "BLsurr") user.SendMess("");
+		else if (str == "RDsurr") user.SendMess("");
+	};
 
 	void QuitAPP() { QCoreApplication::quit(); };
 	///////////////////Event///////////////////

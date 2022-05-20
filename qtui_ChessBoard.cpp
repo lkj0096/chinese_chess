@@ -195,7 +195,7 @@ void qtui_ChessBoard::ui_init() {
     ui.btn_RD_xiang_R->setGeometry(QRect(449, 22, 50, 50));
 }
 
-void qtui_ChessBoard::game_start() {
+void qtui_ChessBoard::game_start(bool BorR) {
     this->ui_init();
     time_remained = 0;
     ui.lb_timer->setText(QString("00:00"));

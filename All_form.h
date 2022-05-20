@@ -28,6 +28,7 @@ public:
     void ShowHintPos(vector<Point>& pts1, vector<Point>& pts2) { form_board->ShowHintPos(pts1,pts2); };
     void CheckMate() { form_board->checkmate(); };
     void EndGame() { form_board->game_over(); };
+    void gamestart(bool BorR) { form_board->game_start(BorR); };
 private:
     void showform(QMainWindow* w);
     MainUserInterface* main_in;
@@ -35,6 +36,7 @@ private:
     MainWindow* form_main;
     Single* form_sing;
     Multiplayer* form_multi;
-    Lobby* form_lobb;
+    Lobby* form_lobb_host;
+    Lobby* form_lobb_client;
     Settings* form_set;
 };

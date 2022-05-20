@@ -11,6 +11,7 @@ class Multiplayer : public QMainWindow{
 
 public:
     Multiplayer(QWidget* parent = Q_NULLPTR);
+    QString get_addr() { return ui.lineEdit->text(); };
 signals:
     void multitointe(string);
 private:

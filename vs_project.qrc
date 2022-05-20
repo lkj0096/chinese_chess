@@ -18,5 +18,6 @@
         <file>pics/sd1.svg</file>
         <file>pics/sl1.svg</file>
         <file>pics/棋盤.svg</file>
+        <file>pics/circle.png</file>
     </qresource>
 </RCC>

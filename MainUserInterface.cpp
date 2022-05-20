@@ -4,6 +4,8 @@
 MainUserInterface::MainUserInterface(int argc, char* argv[]) {
 	this->argc = argc;
 	this->argv = argv;
+	a = nullptr;
+	forms = nullptr;
 }
 
 void MainUserInterface::run() {
@@ -14,4 +16,10 @@ void MainUserInterface::run() {
 		a->exec();
 	});
 	t_ui.join();
+}
+
+void MainUserInterface::LoadGame() {
+	//void (MainUserInterface::* func)() = &MainUserInterface::setX;
+	//(this->*func)();
+	user.LoadGame(this, &MainUserInterface::setX);
 }

@@ -19,7 +19,7 @@ public slots:
     void ShowHintPos(vector<Point>, vector<Point>);
     void MoveChess(Point);
     void checkmate() {};
-    void game_start();
+    void game_start(bool);
     void game_over();
 
 signals:
@@ -27,6 +27,7 @@ signals:
     void chess_pressed(Point);
     void hint_pressed(Point, Point);
 private:
+    bool thisisred;
     QPushButton* eaten;
     QPushButton* last_pressed_btn;
     Point last_pressed_pos;
