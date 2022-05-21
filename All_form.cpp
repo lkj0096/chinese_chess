@@ -14,6 +14,9 @@ All_form::All_form(QWidget* parent)
 	form_lobb_client = new Lobby();
     form_multi = new Multiplayer();
     form_set = new Settings();
+	form_summ_single = new Summery();
+	form_summ_host = new Summery();
+	form_summ_client = new Summery();
 	showform(form_main);
 
 	connect(form_main, &MainWindow::maintointe, [=](string str) {
@@ -36,13 +39,14 @@ All_form::All_form(QWidget* parent)
 		}
 		else if (str == "self") {
 			//call 
+			main_in->StartSelfGame();
+			mymode = 3;
 			showform(form_board);
-			form_board->game_start(1);
 		}
 		else if (str == "AI") {
 			//call 4j
-			showform(form_board);
-			form_board->game_start(1);
+			//showform(form_board);
+			//form_board->game_start(1);
 		}
 		else if (str == "load") {
 			QString Filename = QFileDialog::getOpenFileName(form_sing,
@@ -70,6 +74,7 @@ All_form::All_form(QWidget* parent)
 		}
 		else if (str == "create") {
 			// ???
+			mymode = 1;
 			main_in->CreateRoom();
 			showform(form_lobb_host);
 			//call 4j
@@ -78,6 +83,7 @@ All_form::All_form(QWidget* parent)
 			// ???
 			// kick2p vis
 			try {
+				mymode = 2;
 				main_in->JoinRoom(form_multi->get_addr().toStdString());
 				showform(form_lobb_client);
 			}
@@ -99,8 +105,7 @@ All_form::All_form(QWidget* parent)
 			// ???
 			//call 4j
 			main_in->StartOnlineGame();
-			showform(form_board);
-			form_board->game_start(1);
+			//showform(form_board);
 		}
 		else if (str == "kickp2") {
 			// ???
@@ -153,15 +158,66 @@ All_form::All_form(QWidget* parent)
 	connect(form_board, &qtui_ChessBoard::hint_pressed, [=](Point pt1, Point pt2) {
 		main_in->HintPressed(pt1, pt2);
 	});
+
+	connect(form_summ_client, &Summery::again, [=] {
+		main_in->SendAgain();
+	});
+
+	connect(form_summ_client, &Summery::backtolob, [=] {
+		main_in->CloseClient();
+		showform(form_main);
+	});
+
+	connect(form_summ_host, &Summery::again, [=] {
+		main_in->SendAgain();
+	});
+
+	connect(form_summ_host, &Summery::backtolob, [=] {
+		main_in->CloseHost();
+		showform(form_main);
+	});
+
+	connect(form_summ_single, &Summery::again, [=] {
+		main_in->SendAgain();
+	});
+
+	connect(form_summ_single, &Summery::backtolob, [=] {
+		main_in->CloseClient();
+		showform(form_main);
+	});
 }
 
+void All_form::EndGame(bool RorB) {
+	form_board->game_over();
+	switch (mymode) {
+	case 1:
+		showform(form_summ_host);
+		form_summ_host->setlableText(RorB);
+	case 2:
+		showform(form_summ_client);
+		form_summ_client->setlableText(RorB);
+	case 3:
+		showform(form_summ_single);
+		form_summ_single->setlableText(RorB);
+	default:
+		break;
+	}
+}
+
+
 void All_form::showform(QMainWindow* w) {
-	form_main->hide();
+	//form_main->hide();
+	form_main->setVisible(0);
 	form_board->hide();
 	form_lobb_host->hide();
+	//form_lobb_host->setVisible(0);
 	form_lobb_client->hide();
+	//form_lobb_client->setVisible(0);
 	form_sing->hide();
 	form_multi->hide();
 	form_set->hide();
+	form_summ_host->hide();
+	form_summ_client->hide();
+	form_summ_single->hide();
 	w->show();
 }

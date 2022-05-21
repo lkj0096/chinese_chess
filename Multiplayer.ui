@@ -77,7 +77,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>127.000.000.1</string>
+    <string>127.0.0.1</string>
    </property>
    <property name="maxLength">
     <number>15</number>

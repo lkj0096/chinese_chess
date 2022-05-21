@@ -1,43 +1,38 @@
 #pragma once
+#include <QObject>
 #include <QtWidgets/QApplication>
 #include <string>
 #include <vector>
 #include "All_form.h"
 #include "Point.h"
 #include "Player.h"
-
-
-
-
 using std::string, std::vector;
 
-class MainUserInterface {
-	QApplication* a;
-	All_form* forms;
+class MainUserInterface : public QObject {
+	Q_OBJECT
+private:
+	QApplication* a; //main thread
+	All_form* forms; //main thread
 	int argc;
 	char** argv;
 
-	User user;
-
+	User user; // second thread
 public:
 	MainUserInterface(int argc, char* argv[]);
-	int x = 3;
-	
+
 	/// main thread
 	void run();
 	/// end main thread
-	
-	void setX() {};
 
-	void SelfGameStart(bool RorB) { forms->gamestart(RorB); }
+	void SelfGameStart() { forms->SelfGameStart(); user.playerSelfGame(); }
 
-	void AIGameStart(bool RorB) { forms->gamestart(RorB); }
+	//void AIGameStart(bool RorB) { forms->gamestart(RorB); }
 
-	void LoadGame();
+	void LoadGame() {};
 
-	void LoadGameStart(bool RorB) { forms->gamestart(RorB); }
+	//void LoadGameStart(bool RorB) { forms->gamestart(RorB); }
 
-	void MultiGameStart(bool RorB) { forms->gamestart(RorB); }
+	void MultiGameStart(bool RorB) { forms->MultiGameStart(RorB); }
 
 	/// <summary>
 	/// Press Create Room Button
@@ -63,24 +58,24 @@ public:
 	/// Press Start Game when user is host
 	/// </summary>
 	void StartOnlineGame() { user.StartOnlineGame(); };
+	void StartSelfGame() { user.playerSelfGame(); };
 
+	/// <summary>
+	/// Press again Button
+	/// </summary>
+	void SendAgain() {};
 
 	/// <summary>
 	/// Press Setting Button
 	/// </summary>
 	void Setting() {};
 
-
-	/// <summary>
-	/// Press Back Button
-	/// </summary>
-
 	/// <summary>
 	/// Surr
 	/// </summary>
 	void Surr(string str) {
-		if (str == "BLsurr") user.SendMess("");
-		else if (str == "RDsurr") user.SendMess("");
+		//if (str == "BLsurr") user.SendMess("");
+		//else if (str == "RDsurr") user.SendMess("");
 	};
 
 	void QuitAPP() { QCoreApplication::quit(); };
@@ -92,19 +87,23 @@ public:
 
 	///////////////////Gaming///////////////////
 
-	void MoveChess(Point pt) {
-		forms->MoveChess(pt);
+	void MoveChess(Point pt1, Point pt2) {
+		forms->MoveChess(pt1, pt2);
 	};
 
 	void ShowHintPos(vector<Point> pts) {
 		forms->ShowHintPos(pts);
 	};
 
-	void HintPressed(Point, Point) {};
-	void ChessPressed(Point) {};
+	void HintPressed(Point pt1, Point pt2) { user.MoveChess(pt1, pt2); };
+	void ChessPressed(Point pt) { user.GetHint(pt); };
 
 	void CheckMate() { forms->CheckMate(); };
-	void EndGame() { forms->EndGame(); };
+	
+	//void HostEndGame(const bool RorB) { forms->EndGame_host(RorB); };
+	//void ClientEndGame(const bool RorB) { forms->EndGame_client(RorB); };
+	void EndGame(const bool RorB) { forms->EndGame(RorB); };
 
 	void setTurn(const bool BlackTurn) { forms->setTurn(BlackTurn); };
+	void setCanMove() { forms->setCanMove(); };
 };
